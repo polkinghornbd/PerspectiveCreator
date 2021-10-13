@@ -41,6 +41,11 @@ function init(){
 		}
 		// Clear the canvas to start again
 		ctx.clearRect(0,0,canvas.width, canvas.height);
+		ctx.beginPath();
+		ctx.rect(0,0,canvas.width,canvas.height);
+		ctx.fillStyle = "#FFF";
+		ctx.fill();
+		ctx.fillStyle = "#000";
 
 		// Draw the vanishing points
 		drawPoint(van1.range.value, canvas.height / 2);
