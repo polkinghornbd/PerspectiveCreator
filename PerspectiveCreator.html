@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Image Perspective Generator</title>
+		<link rel="stylesheet" type="text/css" href="PerspectiveCreator.css">
+	</head>
+	<body>
+		<canvas id="Canvas" width="1200" height="800"></canvas>
+
+		<div class="slidecontainer">
+			<div class = "slider1">
+		  		<input type="range" min="1" max="600" value="50" class="slider" id="range1">
+		  		<p> Value: <span id="out1"></span></p>
+		  	</div>
+		  	<div class="slider2">
+			  <input type="range" min="600" max="1200" value="1150" class="slider" id="range2">
+			  <p> Value: <span id="out2"></span></p>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="PerspectiveCreator.js"></script>
+	</body>
+</html>
