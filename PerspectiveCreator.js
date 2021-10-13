@@ -54,12 +54,15 @@ function init(){
 		         wallx.range.value,400 + parseInt(whn.range.value));
 
 		// Calculate the top two slopes
+		// Top Right
 		let m1 = (400 - whp.range.value - canvas.height / 2) / 
 		         (wallx.range.value - van1.range.value);
-		let m2 = (canvas.height / 2 - 400 + parseInt(whp.range.value)) /
-		         (van2.range.value - wallx.range.value);
+		// Top Left
+		let m2 = (400 - whp.range.value - canvas.height / 2) /
+		         (wallx.range.value - van2.range.value);
 
 		// Draw the upper roof lines
+		// Top Right
 		drawLine(wallx.range.value,
 		         400 - whp.range.value,
 		         van1.range.value - canvas.height / 2 / m1,
@@ -67,23 +70,25 @@ function init(){
 
 		drawLine(wallx.range.value,
 			     400 - whp.range.value,
-			     wallx.range.value - canvas.height / 2 / m2,
+			     van2.range.value - canvas.height / 2 / m2,
 			     0);
 
 		// Calculate the bottom two slopes
 		let m3 = (400 + parseInt(whn.range.value) - canvas.height / 2) /
 		         (wallx.range.value - van1.range.value);
-		let m4 = (canvas.height / 2 - 400 - whn.range.value) /
-		         (van2.range.value - wallx.range.value);
+		let m4 = (400 + parseInt(whn.range.value) - canvas.height / 2) /
+		         (wallx.range.value - van2.range.value);
 
 		// Draw the bottom two lines
+		// Bottom Right
 		drawLine(wallx.range.value,
 			     400 + parseInt(whn.range.value),
-			     canvas.height / 2 / m3 + parseInt(van1.range.value) - canvas.height / 2 / m3,
+			     canvas.height / m3 + parseInt(van1.range.value) - canvas.height / 2 / m3,
 			     canvas.height);
+		// Bottom left
 		drawLine(wallx.range.value,
 			     400 + parseInt(whn.range.value),
-			     canvas.height / 2 / m4 + parseInt(wallx.range.value) - (400 + parseInt(whn.range.value)) / m4,
+			     canvas.height / m4 + parseInt(van2.range.value) - canvas.height / 2 / m4,
 			     canvas.height);
 	}
 
