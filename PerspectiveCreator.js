@@ -37,7 +37,6 @@ function init(){
 		if(output != null){
 			output = output.slice(0,output.length - 2) + "out";
 			updateOutput = document.getElementById(output);
-			console.log(updateOutput.innerHTML)
 			updateOutput.innerHTML = input;
 		}
 		// Clear the canvas to start again
@@ -53,6 +52,39 @@ function init(){
 		// Draw the vertical line
 		drawLine(wallx.range.value,400 - whp.range.value,
 		         wallx.range.value,400 + parseInt(whn.range.value));
+
+		// Calculate the top two slopes
+		let m1 = (400 - whp.range.value - canvas.height / 2) / 
+		         (wallx.range.value - van1.range.value);
+		let m2 = (canvas.height / 2 - 400 + parseInt(whp.range.value)) /
+		         (van2.range.value - wallx.range.value);
+
+		// Draw the upper roof lines
+		drawLine(wallx.range.value,
+		         400 - whp.range.value,
+		         van1.range.value - canvas.height / 2 / m1,
+		         0);
+
+		drawLine(wallx.range.value,
+			     400 - whp.range.value,
+			     wallx.range.value - canvas.height / 2 / m2,
+			     0);
+
+		// Calculate the bottom two slopes
+		let m3 = (400 + parseInt(whn.range.value) - canvas.height / 2) /
+		         (wallx.range.value - van1.range.value);
+		let m4 = (canvas.height / 2 - 400 - whn.range.value) /
+		         (van2.range.value - wallx.range.value);
+
+		// Draw the bottom two lines
+		drawLine(wallx.range.value,
+			     400 + parseInt(whn.range.value),
+			     canvas.height / 2 / m3 + parseInt(van1.range.value) - canvas.height / 2 / m3,
+			     canvas.height);
+		drawLine(wallx.range.value,
+			     400 + parseInt(whn.range.value),
+			     canvas.height / 2 / m4 + parseInt(wallx.range.value) - (400 + parseInt(whn.range.value)) / m4,
+			     canvas.height);
 	}
 
 	function drawPoint(x,y,radius=7,strokeColor="Black"){
