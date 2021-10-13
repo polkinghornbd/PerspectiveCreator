@@ -8,14 +8,13 @@ function init(){
 		constructor(inputID,outputID){
 			this.range = document.getElementById(inputID);
 			this.output = document.getElementById(outputID);
+			// Print the intital value in output
 			this.output.innerHTML = this.range.value;
-			this.range.oninput = function(output) {
-				output.innerHTML = this.value;
-				update();
+			// When we change the slider, change the output value
+			this.range.oninput = function(input) {
+				update(input.originalTarget.id.toString(), this.value);
 			}
 		}
-
-		
 	}
 
 	// Grab the canvas how we want it
@@ -23,51 +22,37 @@ function init(){
 	const ctx = canvas.getContext('2d');
 
 	// Attach to all the slider and output values
-	let slider1 = new slider("range1","out1");
-	let slider2 = new slider("range2","out2");
-	// var slider1 = document.getElementById("range1");
-	// var output1 = document.getElementById("out1");
-	// var slider2 = document.getElementById("range2");
-	// var output2 = document.getElementById("out2");
-	// var slider3 = document.getElementById("range3");
-	// var output3 = document.getElementById("out3");
-	// var slider4 = document.getElementById("range4");
-	// var output4 = document.getElementById("out4");
-	// var slider5 = document.getElementById("range5");
-	// var output5 = document.getElementById("out5");
-	// Display the default slider value
-	// output1.innerHTML = slider1.value; 
-	// output2.innerHTML = slider2.value;
-	// output3.innerHTML = slider3.value;
-	// output4.innerHTML = slider4.value;
-	// output5.innerHTML = slider5.value;
+	let van1 = new slider("van1in","van1out");
+	let van2 = new slider("van2in","van2out");
+	let whp = new slider("whpin","whpout");
+	let whn = new slider("whnin","whnout");
+	let wallx = new slider("wallxin","wallxout");
 
-	// Update the current slider value (each time you drag the slider handle)
-	// slider1.oninput = function() {
-	// 	output1.innerHTML = this.value;
-	// 	update();
-	// }
-	// slider2.oninput = function() {
-	// 	output2.innerHTML = this.value;
-	// 	update();
-	// }
-
+	// Create initial drawing
 	update();
 
 	// Function Definitions
-	function update(){
+	function update(output = null,input = null){
+		// Change values if we need
+		if(output != null){
+			output = output.slice(0,output.length - 2) + "out";
+			updateOutput = document.getElementById(output);
+			console.log(updateOutput.innerHTML)
+			updateOutput.innerHTML = input;
+		}
 		// Clear the canvas to start again
 		ctx.clearRect(0,0,canvas.width, canvas.height);
 
 		// Draw the vanishing points
-		drawPoint(slider1.range.value, canvas.height / 2);
-		drawPoint(slider2.range.value, canvas.height / 2);
+		drawPoint(van1.range.value, canvas.height / 2);
+		drawPoint(van2.range.value, canvas.height / 2);
 
 		// Draw the horizon line
 		drawLine(0, canvas.height / 2, canvas.width, canvas.height / 2);
 
 		// Draw the vertical line
-		//drawLine(slider3.value, slider4.value, slider3.value, slider5.value);
+		drawLine(wallx.range.value,400 - whp.range.value,
+		         wallx.range.value,400 + parseInt(whn.range.value));
 	}
 
 	function drawPoint(x,y,radius=7,strokeColor="Black"){
